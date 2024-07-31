@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "Actor.h"
 #include <algorithm>
-#include "Model.h"
+#include "../Renderer/Model.h"
 #include <memory>
 
 void Scene::Update(float dt)

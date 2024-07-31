@@ -1,7 +1,7 @@
 #pragma once
-#include "Transform.h"
+#include "../Math/Transform.h"
 #include <string>
-#include "Model.h"
+#include "../Renderer/Model.h"
 
 class Model;
 class Renderer;

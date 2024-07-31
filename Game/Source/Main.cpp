@@ -1,36 +1,43 @@
 #include <iostream>
 #include "Engine.h"
-
-#include "Actor.h"
-#include "Scene.h"
+#include <cstdlib>
+#include "Framework/Actor.h"
+#include "Framework/Scene.h"
 #include <vector>
+
 
 
 int main(int argc, char* argv[])
 {
-
-	g_engine.Initialize();
-	
+	std::unique_ptr<Engine> engine = std::make_unique<Engine>();
 
 	
+	engine->Initialize();
 
-	while (!g_engine.IsQuit())
+
+	File::SetFilePath("Assest");
+	std::cout<< File::GetFilePath()<< std::endl;
+
+	
+	
+
+	while (!engine->IsQuit())
 	{
-		g_engine.Update();
+		engine->Update();
 		
 
-		g_engine.GetRenderer().SetColor(0, 0, 0, 0);
-		g_engine.GetRenderer().BeginFrame();
+		engine->GetRenderer().SetColor(0, 0, 0, 0);
+		engine->GetRenderer().BeginFrame();
 
 
 
 		
 
 
-		g_engine.GetRenderer().EndFrame();
+		engine->GetRenderer().EndFrame();
 	}
 
-	g_engine.Shutdown();
+	engine->Shutdown();
 	return 0;
 
 

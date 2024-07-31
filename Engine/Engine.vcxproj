@@ -19,41 +19,48 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Actor.cpp" />
-    <ClCompile Include="Source\Audio.cpp" />
+    <ClCompile Include="Source\Audio\Audio.cpp" />
     <ClCompile Include="Source\Bullets.cpp" />
+    <ClCompile Include="Source\Core\EAssert.cpp" />
+    <ClCompile Include="Source\Core\EFile.cpp" />
+    <ClCompile Include="Source\Core\ETime.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\ETime.cpp" />
-    <ClCompile Include="Source\Font.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\Model.cpp" />
-    <ClCompile Include="Source\Particle.cpp" />
-    <ClCompile Include="Source\ParticleSystem.cpp" />
-    <ClCompile Include="Source\Renderer.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\Text.cpp" />
+    <ClCompile Include="Source\Framework\Actor.cpp" />
+    <ClCompile Include="Source\Framework\Scene.cpp" />
+    <ClCompile Include="Source\Input\Input.cpp" />
+    <ClCompile Include="Source\Renderer\Font.cpp" />
+    <ClCompile Include="Source\Renderer\Model.cpp" />
+    <ClCompile Include="Source\Renderer\Particle.cpp" />
+    <ClCompile Include="Source\Renderer\ParticleSystem.cpp" />
+    <ClCompile Include="Source\Renderer\Renderer.cpp" />
+    <ClCompile Include="Source\Renderer\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Actor.h" />
-    <ClInclude Include="Source\Audio.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\Audio\Audio.h" />
     <ClInclude Include="Source\Bullets.h" />
-    <ClInclude Include="Source\Color.h" />
+    <ClInclude Include="Source\Core\EAssert.h" />
+    <ClInclude Include="Source\Core\EFile.h" />
+    <ClInclude Include="Source\Core\ETime.h" />
     <ClInclude Include="Source\Engine.h" />
-    <ClInclude Include="Source\ETime.h" />
-    <ClInclude Include="Source\FMOD.h" />
-    <ClInclude Include="Source\Font.h" />
-    <ClInclude Include="Source\Game.h" />
-    <ClInclude Include="Source\Input.h" />
-    <ClInclude Include="Source\MathUtils.h" />
-    <ClInclude Include="Source\Model.h" />
-    <ClInclude Include="Source\Particle.h" />
-    <ClInclude Include="Source\ParticleSystem.h" />
-    <ClInclude Include="Source\Random.h" />
-    <ClInclude Include="Source\Renderer.h" />
-    <ClInclude Include="Source\Scene.h" />
-    <ClInclude Include="Source\Text.h" />
-    <ClInclude Include="Source\Transform.h" />
-    <ClInclude Include="Source\Vector2.h" />
+    <ClInclude Include="Source\Framework\Actor.h" />
+    <ClInclude Include="Source\Framework\Game.h" />
+    <ClInclude Include="Source\Framework\Scene.h" />
+    <ClInclude Include="Source\Input\Input.h" />
+    <ClInclude Include="Source\Math\MathUtils.h" />
+    <ClInclude Include="Source\Math\Random.h" />
+    <ClInclude Include="Source\Math\Transform.h" />
+    <ClInclude Include="Source\Math\Vector2.h" />
+    <ClInclude Include="Source\Renderer\Color.h" />
+    <ClInclude Include="Source\Renderer\Font.h" />
+    <ClInclude Include="Source\Renderer\Model.h" />
+    <ClInclude Include="Source\Renderer\Particle.h" />
+    <ClInclude Include="Source\Renderer\ParticleSystem.h" />
+    <ClInclude Include="Source\Renderer\Renderer.h" />
+    <ClInclude Include="Source\Renderer\Text.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -141,7 +148,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)ThirdParty\fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sdl2.lib;sdl2main.lib;fmod_vc.lib;sdl2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -166,7 +173,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)ThirdParty\fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sdl2.lib;sdl2main.lib;fmod_vc.lib;sdl2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -187,7 +194,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)ThirdParty\fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sdl2.lib;sdl2main.lib;fmod_vc.lib;sdl2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -212,7 +219,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)ThirdParty\fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sdl2.lib;sdl2main.lib;fmod_vc.lib;sdl2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
