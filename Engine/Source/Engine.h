@@ -33,6 +33,13 @@
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
 
+//Resources
+#include "Resources/Resources.h"
+#include "Resources/ResourceManager.h"
+
+//Components
+#include "Components/TextureComponent.h"
+
 #include <fmod.h>
 #include <SDL.h>
 #include <memory>

@@ -8,4 +8,4 @@
 #define ASSERT(expr) (void)0
 #endif
 
-void CustomAssert(std::string& expression, const std::string& filename, int line);
+void CustomAssert(const std::string& expression, const std::string& filename, int line);
