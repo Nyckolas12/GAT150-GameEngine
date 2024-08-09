@@ -5,6 +5,9 @@
 #include "Core/ETime.h"
 #include "Core/EFile.h"
 #include "Core/ETime.h"
+#include "rapidjson/document.h"
+#include "Core/Factory.h"
+#include "Core/Singleton.h"
 
 //Renderer
 #include "Renderer/Particle.h"
