@@ -42,6 +42,9 @@
 
 //Components
 #include "Components/TextureComponent.h"
+#include "Components/PhysicsComponent.h"
+#include "Components/EnginePhsicsComponent.h"
+#include "Components/TextComponent.h"
 
 #include <fmod.h>
 #include <SDL.h>

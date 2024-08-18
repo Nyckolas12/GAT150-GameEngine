@@ -4,6 +4,7 @@
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 #include "Texture.h"
+#include <memory>
 class Renderer
 {
 public:
@@ -27,8 +28,8 @@ public:
 	int GetHeight() const { return m_height; }
 	friend class Texture;
 	
-	void DrawTexture(Texture* texture, float x, float y, float angle = 0.0f);
-
+	void DrawTexture(std::weak_ptr<class Texture> texture, float x, float y, float angle = 0.0f);
+	void DrawTexture(std::weak_ptr<class Texture> texture, const struct Transform& transform, bool hflip = false);
 
 
 	friend class Text;

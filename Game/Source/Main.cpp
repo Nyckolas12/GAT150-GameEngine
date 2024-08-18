@@ -6,6 +6,8 @@
 #include <vector>
 #include <Resources/ResourceManager.h>
 #include <Renderer/Texture.h>
+#include "Components/PlayerComponent.h"
+#include "Components/TextComponent.h"
 #include "Core/Json.h"
 
 
@@ -14,7 +16,10 @@ int main(int argc, char* argv[])
 {
 
 	Factory::Instance().Register<Actor>(Actor::GetTypeName());
-	Factory::Instance().Register<TextureComponent>("Texture");
+	Factory::Instance().Register<TextureComponent>(TextureComponent::GetTypeName());
+	Factory::Instance().Register<EnginePhysicsComponent>(EnginePhysicsComponent::GetTypeName());
+	Factory::Instance().Register<PlayerComponent>(PlayerComponent::GetTypeName());
+	Factory::Instance().Register<TextComponent>(TextComponent::GetTypeName());
 	
 
 	std::unique_ptr<Engine> engine = std::make_unique<Engine>();
@@ -22,70 +27,45 @@ int main(int argc, char* argv[])
 	
 	
 	engine->Initialize();
-
-
+	std::unique_ptr<Scene> scene = std::make_unique<Scene>(engine.get());
+	
 	File::SetFilePath("Assest");
 	std::cout<< File::GetFilePath()<< std::endl;
 	std::string s;
-	File::ReadFile("Helloguys.txt", s);
+	File::ReadFile("Scenes/scenes.json", s);
 	std::cout << s;
 
 	rapidjson::Document document;
-	Json::Load("Helloguys.txt", document);
-
-	std::string name;
-	int age;
-	bool isAwake;
-	Vector2 position;
-	Color color;
-	READ_DATA(document, age);
-	READ_DATA(document, name);
-	READ_DATA(document, isAwake);
-	READ_DATA(document, position);
-	READ_DATA(document, color);
-	/*Json::Read(document, "age", age);
-	Json::Read(document, "name", name);
-	Json::Read(document, "isAwake", isAwake);
-	*/
-	std::cout << " " << name << " " << age << " " << isAwake << " "  << std::endl;
-	std::cout << position.x << " " << position.y << std::endl;
-	std::cout << color.r << " " << color.g << " " << color.b << " " << color.a << std::endl;
+	Json::Load("Scenes/scenes.json", document);
+	scene->Read(document);
+	scene->Initialize();
 	
 	{
-		res_t<Font> font = ResourceManager::Instance().Get<Font>("ReliableSource.ttf", 12);
-		std::unique_ptr<Text> text = std::make_unique<Text>(font);
-		text->Create(engine->GetRenderer(), "Hello!", { 1, 1, 0, 1 });
-
-		res_t<Texture> texture = ResourceManager::Instance().Get<Texture>("days_gone.jpg", engine->GetRenderer());
-
-		Transform t{ {30,30}, };
-		std::unique_ptr<Actor> actor = Factory::Instance().Create<Actor>("Actor");
-		actor->SetTransform({ {30,30} });
-		std::unique_ptr<TextureComponent> component = std::make_unique<TextureComponent>();
-		component->texture = texture;
-		actor->AddComponent(std::move(component));
-
 		while (!engine->IsQuit())
 		{
 			//update
 			engine->Update();
-			actor->Update(engine->GetTime().GetDeltaTime());
+			scene->Update(engine->GetTime().GetDeltaTime());
+			auto* actor = scene->GetActor<Actor>("Text");
+
+			if (actor)
+			{
+				//actor->transform.scale = (1.0f + (Math::Sin(engine->GetTime().GetTime())) * 5);
+				actor->transform.rotation += 90 * engine->GetTime().GetDeltaTime();
+			}
+			
 			//render
 			engine->GetRenderer().SetColor(0, 0, 0, 0);
 			engine->GetRenderer().BeginFrame();
 
-
-			engine->GetRenderer().DrawTexture(texture.get(), 30, 30);
-			text->Draw(engine->GetRenderer(), 200, 200);
-
-			//actor->Draw(engine->GetRenderer());
+			scene->Draw(engine->GetRenderer());
+			
 
 			engine->GetRenderer().EndFrame();
 		}
 	}
+	scene->RemoveAll();
 	ResourceManager::Instance().Clear();
 	engine->Shutdown();
 	return 0;
-
-
 }
