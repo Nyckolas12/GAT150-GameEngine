@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{9e6b7282-f488-417a-a217-5d7fefaf02b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{d95c03e2-e775-4adc-9ad0-5a262bdbee28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\TextComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Physics\Physics.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Source\Components\TextComponent.h">
       <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Physics\Physics.h">
+      <Filter>Source Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

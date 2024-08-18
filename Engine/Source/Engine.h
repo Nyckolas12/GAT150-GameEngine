@@ -46,6 +46,9 @@
 #include "Components/EnginePhsicsComponent.h"
 #include "Components/TextComponent.h"
 
+//Physics
+#include "Physics/Physics.h"
+
 #include <fmod.h>
 #include <SDL.h>
 #include <memory>
@@ -67,6 +70,7 @@ public:
 	Audio& GetAudio() { return *m_audio; }
 	Time& GetTime() { return *m_time; }
 	bool IsQuit() { return quit; }
+	Physics& GetPhysics() { return *m_physics; }
 
 	ParticleSystem& GetPS() { return *m_particleSystem; }
 
@@ -78,4 +82,5 @@ private:
 	std::unique_ptr<Audio> m_audio{ nullptr };
 	std::unique_ptr<Time> m_time{ nullptr };
 	std::unique_ptr<ParticleSystem> m_particleSystem;
+	std::unique_ptr<Physics> m_physics;
 };
