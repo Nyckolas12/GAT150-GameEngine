@@ -14,7 +14,7 @@ public:
 	bool Addsound(const std::string& name);
 	bool Playsound(const std::string& name);
 
-private:
 	FMOD::System* m_audio{ nullptr };
+protected:
 	std::map<std::string, FMOD::Sound*> m_sounds;
 };

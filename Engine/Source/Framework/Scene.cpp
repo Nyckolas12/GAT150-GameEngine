@@ -2,6 +2,8 @@
 #include "Actor.h"
 #include <algorithm>
 #include "Core/Factory.h"
+#include "Components/CollisionComponents.h"
+#include "Core/EAssert.h"
 #include <memory>
 
 void Scene::Initialize()
@@ -43,17 +45,23 @@ void Scene::Draw(Renderer& renderer)
 	}
 }
 
-void Scene::AddActor(std::unique_ptr<Actor> actor)
+void Scene::AddActor(std::unique_ptr<Actor> actor, bool initialize )
 {
 
 	actor->scene = this;
 	actors.push_back(std::move(actor));
-
+	if (initialize) actor->Initialize();
 }
 
 void Scene::RemoveAll()
 {
 	actors.clear();
+}
+
+Scene::Scene(const Scene& other)
+{
+	ASSERT(false);
+
 }
 
 void Scene::Read(const json_t& value)
@@ -64,8 +72,18 @@ void Scene::Read(const json_t& value)
 		{
 			auto actor = Factory::Instance().Create<Actor>(Actor::GetTypeName());
 			actor->Read(actorValue);
+			bool prototype = false;
+			READ_DATA(actorValue, prototype);
+			if (prototype)
+			{
+				std::string name = actor->name;
+				Factory::Instance().RegisterPrototype<Actor>(name, std::move(actor));
+			}
+			else {
+				AddActor(std::move(actor));
+			}
 
-			AddActor(std::move(actor));
+			
 		}
 	}
 }

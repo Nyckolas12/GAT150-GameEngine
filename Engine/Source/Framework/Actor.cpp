@@ -2,6 +2,9 @@
 #include "Components/RenderComponent.h"
 #include "Core/Factory.h"
 #include <iostream>
+
+FACTORY_REGISTER(Actor)
+
 void Actor::Initialize()
 {
 	for (auto& component : components)
@@ -55,6 +58,21 @@ void Actor::AddComponent(std::unique_ptr<Component> component)
 {
 	component->owner = this;
 	components.push_back(std::move(component));
+}
+
+Actor::Actor(const Actor& other)
+{
+	tag = other.tag;
+	lifespan = other.lifespan;
+	destroyed = other.destroyed;
+	transform = other.transform;
+	scene = other.scene;
+
+	for (auto& component : other.components)
+	{
+		auto clone = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+		AddComponent(std::move(clone));
+	}
 }
 
 void Actor::Read(const json_t& value)

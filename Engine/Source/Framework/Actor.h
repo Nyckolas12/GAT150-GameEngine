@@ -4,6 +4,7 @@
 #include "Components/Component.h"
 #include <vector>
 #include <memory>
+#include <functional>
 
 class Model;
 class Renderer;
@@ -14,17 +15,19 @@ class Actor :public Object
 public:
 	Actor() = default;
 	Actor(const Transform& transform) : transform{ transform } {}
+	Actor(const Actor& other);
 	
 	CLASS_DECLARATION(Actor)
+	CLASS_PROTOTYPE(Actor)
 
 	 void Initialize() override;
 	virtual void Update(float dt);
 	virtual void Draw(Renderer& renderer);
 	void AddComponent(std::unique_ptr<Component> component);
-
 	template<typename T>
 	T* GetComponent();
-
+	std::function<void(Actor*)> OnCollisionEnter;
+	std::function<void(Actor*)> OnCollisionExit;
 	template<typename T>
 	std::vector<T*> GetComponents();
 

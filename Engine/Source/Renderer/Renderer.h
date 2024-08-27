@@ -27,9 +27,10 @@ public:
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
 	friend class Texture;
-	
+	friend struct Transform;
 	void DrawTexture(std::weak_ptr<class Texture> texture, float x, float y, float angle = 0.0f);
 	void DrawTexture(std::weak_ptr<class Texture> texture, const struct Transform& transform, bool hflip = false);
+	void DrawTexture(std::weak_ptr<class Texture> texture, const struct Transform& transform, const struct Rect& source, bool hflip = false);
 
 
 	friend class Text;

@@ -19,6 +19,11 @@
 #include "Renderer/Model.h"
 #include "Renderer/Color.h"
 
+//Events
+#include "Event/EventSystem.h"
+#include "Event/Event.h"
+#include "Event/Observer.h"
+
 //input
 #include "Input/Input.h"
 
@@ -30,6 +35,7 @@
 #include "Math/Transform.h"
 #include "Math/Random.h"
 #include "Math/Vector2.h"
+#include "Math/Rect.h"
 
 //framework
 #include "Framework/Actor.h"
