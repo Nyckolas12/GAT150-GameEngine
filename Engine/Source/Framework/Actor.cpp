@@ -67,6 +67,7 @@ Actor::Actor(const Actor& other)
 	destroyed = other.destroyed;
 	transform = other.transform;
 	scene = other.scene;
+	persistent = other.persistent;
 
 	for (auto& component : other.components)
 	{

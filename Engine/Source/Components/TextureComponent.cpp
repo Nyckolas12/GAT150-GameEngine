@@ -10,7 +10,8 @@ void TextureComponent::Initialize()
 {
 	if (!textureName.empty())
 	{
-		texture = ResourceManager::Instance().Get<Texture>(textureName,owner->scene->engine->GetRenderer());
+		auto& renderer = owner->scene->engine->GetRenderer();
+		texture = ResourceManager::Instance().Get<Texture>(textureName, renderer);
 	}
 
 	if (texture && source.width == 0 && source.height == 0)
@@ -34,7 +35,7 @@ void TextureComponent::Draw(Renderer& renderer)
 
 void TextureComponent::Read(const json_t& value)
 {
-	READ_DATA_REQUIRED(value, textureName);
+	READ_DATA(value, textureName);
 	READ_DATA(value, source);
 }
 

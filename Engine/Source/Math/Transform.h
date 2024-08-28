@@ -7,10 +7,9 @@ struct Transform : public Serializable
 	float rotation{ 0 };
 	float scale{ 1 };
 	
+	Transform(Vector2 position, float rotation = 0, float scale = 1) : position{ position }, rotation{ rotation }, scale{ scale } {}
 	Transform() = default;
 
-	Transform(Vector2 position, float rotation = 0, float scale = 1) :
-		position{ position }, rotation{ rotation }, scale{ scale } {}
 
 	Vector2 Forward() { return  Vector2{ 1,0 }.Rotate(Math::DegToRad(rotation)); }
 

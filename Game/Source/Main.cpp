@@ -15,17 +15,13 @@
 
 int main(int argc, char* argv[])
 {
-
+	File::SetFilePath("Assest");
 
 	std::unique_ptr<Engine> engine = std::make_unique<Engine>();
+	engine->Initialize();
+
 	std::unique_ptr<SpaceGame> game = std::make_unique <SpaceGame>(engine.get());
 	game->Initialize();
-	engine->Initialize();
-	File::SetFilePath("Assest");
-	
-
-	
-	
 	{
 		while (!engine->IsQuit())
 		{

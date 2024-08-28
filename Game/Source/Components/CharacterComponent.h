@@ -8,6 +8,10 @@ public:
 	void Initialize() override;
 	void Update(float dt) override;
 	void OnCollisionEnter(Actor*);
+	void OnCollisionExit(Actor*);
 public:
 	float speed{ 0.0f };
+	int groundCount = 0;
+	class PhysicsComponent* physisc{ nullptr };
+	class TextureAnimationComponent* animation{ nullptr };
 };

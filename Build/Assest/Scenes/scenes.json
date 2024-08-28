@@ -3,14 +3,14 @@
     {
       "name": "background",
       "transform": {
-        "position": [ 400, 300 ],
-        "rotation": 0,
-        "scale": 2
+        "position": [ 500, 300 ],
+        "scale": 3,
+        "rotation": 0
       },
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Assest/Textures/Purple_Nebula.png"
+          "textureName": "Textures/Purple_Nebula.png"
         }
       ]
     },
@@ -19,23 +19,23 @@
       "transform": {
         "position": [ 60, 60 ],
         "rotation": 90,
-        "speed" :  50,
         "scale": 1
       },
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Assest/Textures/player.jpg"
+          "textureName": "Textures/player.gif"
         },
         {
           "type": "Box2DPhysicsComponent",
           "damping": 0.5,
           "size": [ 32, 32 ],
-          "gravityScale": 0
+          "gravityScale": 0,
+          "shape": "capsule"
         },
         {
           "type": "PlayerComponent",
-          "speed": 750
+          "speed": 75
         },
         {
           "type": "CircleCollisionComponent",
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "name": "rocket",
+      "name":"rocket",
       "components": [
         {
           "type": "TextureComponent",
@@ -62,26 +62,27 @@
         },
         {
           "type": "RocketComponent",
-          "speed": 750
+          "speed": 75
         },
         {
           "type": "AudioComponent",
-          "soundName": "Assest/gunshot.wav",
-          "playOnStart": true
+          "soundName": "snare.wav",
+          "playOnStart": true,
+          "loop":  true
         }
       ]
     },
     {
       "name": "enemy",
       "transform": {
-        "position": [ 320, 250 ],
-        "rotation": 270,
+        "position": [ 400, 250 ],
+        "rotation": 200,
         "scale": 1
       },
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Assest/Textures/enemy.png"
+          "textureName": "Textures/enemy.png"
         },
         {
           "type": "Box2DPhysicsComponent",
@@ -95,20 +96,21 @@
     {
       "name": "text",
       "transform": {
-        "position": [ 32, 45 ],
+        "position": [ 320, 45 ],
         "rotation": 0,
-        "scale": 1
+        "scale": 3
       },
       "components": [
         {
           "type": "TextComponent",
           "text": "Hello World",
-          "fontName": "Assest/Fonts/MONIMONI.ttf",
+          "fontName": "Fonts/ReliableSource.ttf",
           "fontSize": 24,
           "color": [ 1, 0, 0, 1 ]
         }
       ]
     },
+
     {
       "name": "bat",
       "transform": {
@@ -119,13 +121,19 @@
       "components": [
         {
           "type": "TextureAnimationComponent",
-          "textureName": "Assest/Textures/bat.png",
-          "fps": 10,
-          "loop": true,
-          "numColumns": 4,
-          "numRows": 1,
-          "startFrame": 1,
-          "endFrame": 4
+          "animationName": "idle",
+          "animations": [
+            {
+              "name": "idle",
+              "textureName": "Textures/bat.png",
+              "fps": 10,
+              "loop": true,
+              "numColumns": 4,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 4
+            }
+          ]
         }
       ]
     }

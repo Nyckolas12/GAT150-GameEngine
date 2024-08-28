@@ -53,14 +53,14 @@ bool Read(const rapidjson::Value& value, const std::string& name, bool& data, bo
 bool Read(const rapidjson::Value& value, const std::string& name, float& data, bool isRequired)
 {
     // check if the value has the "<name>" and the correct data type
-    if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool())
+    if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsNumber())
     {
         if (isRequired) std::cerr << "Could not read Json value: " << name << std::endl;
         return false;
     }
 
     // get the data
-    data = value[name.c_str()].GetBool();
+    data = value[name.c_str()].GetFloat();
 
     return true;
 }

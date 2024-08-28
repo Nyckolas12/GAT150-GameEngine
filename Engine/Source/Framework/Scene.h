@@ -27,7 +27,7 @@ public:
 
 	void AddActor(std::unique_ptr<Actor> actor, bool initialize = false);
 
-	void RemoveAll();
+	void RemoveAll(bool force = false);
 
 	template<typename T> T* GetActor();
 	template<typename T> T* GetActor(const std::string& name);

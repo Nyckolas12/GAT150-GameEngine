@@ -1,50 +1,57 @@
 #include "CharacterComponent.h"
 #include "Engine.h"
 
-
 FACTORY_REGISTER(CharacterComponent)
 
 void CharacterComponent::Initialize()
 {
 	owner->OnCollisionEnter = std::bind(&CharacterComponent::OnCollisionEnter, this, std::placeholders::_1);
+
+	physisc = owner->GetComponent<PhysicsComponent>();
+	//animation = owner->GetComponent<TextureAnimationComponent>();
 }
 
 void CharacterComponent::Update(float dt)
 {
-	
+	bool groundCount = 1;
+	Vector2 direction = { 0,0 };
 
-	float rotate = 0;
-	float thrust = 0;
+	//left movement
+	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_A)
+		|| owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_LEFT)) direction.x = -1;
+	//right movement
+	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_D)
+		|| owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_RIGHT)) direction.x = 1;
+	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_SPACE)) {
+		physisc->SetVelocity(Vector2{ 0,-50 });
+	}
 
-	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
-	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
-	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
-	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_S)) thrust = -1;
-	owner->GetComponent<PhysicsComponent>()->ApplyTorque(rotate * 90 * dt);
-	Vector2 direction = Vector2 { 1,0 }.Rotate(Math::DegToRad(owner->transform.rotation));
-	owner->GetComponent<PhysicsComponent>()->ApplyForce(direction * speed * thrust);
+	physisc->ApplyForce(direction * speed);
+	//if left
 
-		if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_SPACE))
-		{
-			auto rocket = Factory::Instance().Create<Actor>("rocket");
-			rocket->transform.position = owner->transform.position;
-			rocket->transform.rotation = owner->transform.rotation;
-			owner->scene->AddActor(std::move(rocket), true);
+	//if right
 
-		}
+
+}
+
+void CharacterComponent::OnCollisionEnter(Actor* actor)
+{
+	if (actor->tag == "ground") {
+
+	}
+}
+
+void CharacterComponent::OnCollisionExit(Actor* actor)
+{
+
 }
 
 void CharacterComponent::Read(const json_t& value)
 {
+	READ_DATA(value, speed);
 }
 
 void CharacterComponent::Write(json_t& value)
 {
-}
-
-void CharacterComponent::OnCollisionEnter(Actor*)
-{
-	EVENT_NOTIFY("PlayerDead")
-	EventSystem::Instance().Notify({ "AddPoints", 100 });
-	
+	//
 }

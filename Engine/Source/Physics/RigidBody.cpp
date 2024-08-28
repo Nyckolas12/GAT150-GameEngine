@@ -19,15 +19,50 @@ RigidBody::RigidBody(const Transform& transform, const Vector2& size, const def_
 	m_bodyId = b2CreateBody(physics.m_worldId, &bodyDef);
 
 	// set shape
-	b2Vec2 bsize = ConvertVec2(Physics::ScreenToWorld(size));
-	b2Polygon box = b2MakeBox(bsize.x, bsize.y);
+	b2Vec2 hbsize = ConvertVec2(Physics::ScreenToWorld(size * transform.scale * 0.5f));
 	b2ShapeDef shapeDef = b2DefaultShapeDef();
-	shapeDef.friction = def.restitution;
+	shapeDef.friction = def.friction;
 	shapeDef.restitution = def.restitution;
 	shapeDef.density = def.density;
 	shapeDef.isSensor = def.isSensor;
+	switch (def.shpae)
+	{
+	case Shape::BOX:
+	{
+		//b2Polygon box = b2MakeBox(hbsize.x, hbsize.y);
+		//b2CreatePolygonShape(m_bodyId, &shapeDef, &box);
 
-	b2CreatePolygonShape(m_bodyId, &shapeDef, &box);
+		b2Vec2 vs[4] =
+		{
+			{ -hbsize.x, -hbsize.y },
+			{  hbsize.x, -hbsize.y },
+			{  hbsize.x,  hbsize.y },
+			{ -hbsize.x,  hbsize.y },
+		};
+		b2ChainDef chainDef = b2DefaultChainDef();
+		chainDef.points = vs;
+		chainDef.count = 4;
+		chainDef.isLoop = true;
+		b2CreateChain(m_bodyId, &chainDef);
+	}
+		break;
+	case Shape::CAPSULE:
+	{
+		b2Capsule capsule{ b2Vec2{0,hbsize.y - hbsize.x}, b2Vec2{0,-hbsize.y - hbsize.x }, hbsize.x };
+		b2CreateCapsuleShape(m_bodyId, &shapeDef, &capsule);
+	}
+		break;
+	case Shape::CIRCLE:
+	{
+		b2Circle circle{ b2Vec2{0,0}, hbsize.x };
+		b2CreateCircleShape(m_bodyId, &shapeDef, &circle);
+	}
+		break;
+	default:
+		break;
+	}
+
+
 }
 
 RigidBody::~RigidBody()

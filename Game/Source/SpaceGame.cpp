@@ -5,10 +5,11 @@
 
 bool SpaceGame::Initialize()
 {
+	//ADD_OBSERVER(PlayerDead, SpaceGame::OnPlayerDead)
 	
 	
 	m_scene = std::make_unique<Scene>(m_engine);
-	std::string sceneNames[] = {  "Assest/Scenes/scenes.json" };
+	std::string sceneNames[] = { "Scenes/scenes.json"};
 
 	for (auto sceneName : sceneNames)
 	{
@@ -21,14 +22,13 @@ bool SpaceGame::Initialize()
 	m_scene->Initialize();
 
 
-	//ADD_OBSERVER(PlayerDead, SpaceGame::OnPlayerDead)
 	//EventSystem::Instance().AddObserver("AddPoints", this, std::bind(&SpaceGame::AddPoints, this, std::placeholders::_1));
     return true;
 }
 
 void SpaceGame::Shutdown()
 {
-	m_scene->RemoveAll();
+	m_scene->RemoveAll(true);
 }
 
 void SpaceGame::Update(float dt)
